@@ -24,6 +24,11 @@ double& Matrix::operator()(const unsigned int& row, const unsigned int& col)
 	return this->entries[row][col];
 }
 
+const double& Matrix::operator()(const unsigned int row, const unsigned int col) const
+{
+	return this->entries[row][col];
+}
+
 Matrix::~Matrix() {}
 
 Matrix Matrix::Identity(const unsigned int size)

@@ -23,6 +23,7 @@ public:
 	void Print();
 
 	double& operator()(const unsigned int& row, const unsigned int& col);
+	const double& operator()(const unsigned int row, const unsigned int col) const;
 
 	Matrix Identity(const unsigned int size);
 };
