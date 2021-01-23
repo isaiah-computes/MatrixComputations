@@ -22,7 +22,10 @@ public:
 
 	void Print();
 
-	double& operator()(const unsigned int& row, const unsigned int& col);
+	double& operator()(const unsigned int row, const unsigned int col);
+
+	Matrix operator+(const Matrix& other);
+	Matrix operator-(const Matrix& other);
 
 	Matrix Identity(const unsigned int size);
 };

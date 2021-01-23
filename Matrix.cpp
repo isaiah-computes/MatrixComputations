@@ -19,9 +19,40 @@ Matrix::Matrix(const Matrix& input)
 	entries = input.entries;
 }
 
-double& Matrix::operator()(const unsigned int& row, const unsigned int& col)
+double& Matrix::operator()(const unsigned int row, const unsigned int col)
 {
 	return this->entries[row][col];
+}
+
+
+Matrix Matrix::operator+(const Matrix& other)
+{
+	Matrix output(rows, cols);
+
+	for (unsigned int i = 0; i < rows; i++)
+	{
+		for (unsigned int j = 0; j < cols; j++)
+		{
+			output(i, j) = this->entries[i][j] + other(i, j);
+		}
+	}
+
+	return output;
+}
+
+Matrix Matrix::operator-(const Matrix& other)
+{
+	Matrix output(rows, cols);
+
+	for (unsigned int i = 0; i < rows; i++)
+	{
+		for (unsigned int j = 0; j < cols; j++)
+		{
+			output(i, j) = this->entries[i][j] - other(i, j);
+		}
+	}
+
+	return output;
 }
 
 Matrix::~Matrix() {}
