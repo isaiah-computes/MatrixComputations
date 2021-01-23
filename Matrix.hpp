@@ -20,6 +20,8 @@ public:
 	unsigned int Rows() { return rows; }
 	unsigned int Columns() { return cols; }
 
+	void Print();
+
 	double& operator()(const unsigned int& row, const unsigned int& col);
 
 	Matrix Identity(const unsigned int size);

@@ -1,5 +1,7 @@
 
+#include <iostream>
 #include "Matrix.hpp"
+using std::cout;
 
 Matrix::Matrix(unsigned int NumberRows, unsigned int NumberCols)
 {
@@ -29,4 +31,16 @@ Matrix Matrix::Identity(const unsigned int size)
 	Matrix m = Matrix(size, size);
 	for (unsigned int i = 0; i < size; i++) m(i, i) = 1.0;
 	return m;
+}
+
+void Matrix::Print() 
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			cout << " " << entries[i][j] << " ";
+		}
+		cout << "\n";
+	}
 }

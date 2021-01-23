@@ -12,14 +12,7 @@ int main()
     m(1, 1) = 2;
     m(2, 2) = 3;
 
-    for (int i = 0; i < m.Rows(); i++)
-    {
-        for (int j = 0; j < m.Columns(); j++)
-        {
-            cout << " " << m(i, j) << " ";
-        }
-        cout << "\n";
-    }
+    m.Print();
 
     std::cin.get();
     return 0;
