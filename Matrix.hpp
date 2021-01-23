@@ -29,7 +29,7 @@ public:
 
 	const double& operator()(const unsigned int row, const unsigned int col) const;
 
-	Matrix Identity(const unsigned int size);
+	static Matrix Identity(const unsigned int size);
 };
 
 
