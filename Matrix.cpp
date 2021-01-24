@@ -1,7 +1,6 @@
 
 #include <iostream>
 #include "Matrix.hpp"
-using std::cout;
 
 Matrix::Matrix(unsigned int NumberRows, unsigned int NumberCols)
 {
@@ -21,12 +20,21 @@ Matrix::Matrix(const Matrix& input)
 
 double& Matrix::operator()(const unsigned int row, const unsigned int col)
 {
+	if (row >= rows || col >= cols) throw std::out_of_range("Invalid index value.");
+	return this->entries[row][col];
+}
+
+const double& Matrix::operator()(const unsigned int row, const unsigned int col) const
+{
+	if (row >= rows || col >= cols) throw std::out_of_range("Invalid index value.");
 	return this->entries[row][col];
 }
 
 
 Matrix Matrix::operator+(const Matrix& other)
 {
+	if (rows != other.rows || cols != other.cols) throw std::invalid_argument("Cannot add matrices of differing dimensions.");
+
 	Matrix output(rows, cols);
 
 	for (unsigned int i = 0; i < rows; i++)
@@ -42,6 +50,8 @@ Matrix Matrix::operator+(const Matrix& other)
 
 Matrix Matrix::operator-(const Matrix& other)
 {
+	if (rows != other.rows || cols != other.cols) throw std::invalid_argument("Cannot subtract matrices of differing dimensions.");
+
 	Matrix output(rows, cols);
 
 	for (unsigned int i = 0; i < rows; i++)
@@ -53,11 +63,6 @@ Matrix Matrix::operator-(const Matrix& other)
 	}
 
 	return output;
-}
-
-const double& Matrix::operator()(const unsigned int row, const unsigned int col) const
-{
-	return this->entries[row][col];
 }
 
 Matrix::~Matrix() {}
@@ -75,8 +80,8 @@ void Matrix::Print()
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			cout << " " << entries[i][j] << " ";
+			std::cout << " " << entries[i][j] << " ";
 		}
-		cout << "\n";
+		std::cout << "\n";
 	}
 }

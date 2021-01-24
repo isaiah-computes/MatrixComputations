@@ -24,6 +24,36 @@ int main()
     cout << "\n";
     mMinus.Print();
 
+    try 
+    {
+        cout << m(3, 2);
+    }
+    catch (const std::exception& e)
+    {
+        cout << "\n" << e.what() << "\n";
+    }
+
+    Matrix i2 = Matrix::Identity(4);
+    
+    try
+    {
+        mPlus = i2 + m;
+    }
+    catch (const std::exception& e)
+    {
+        cout << "\n" << e.what() << "\n";
+    }
+
+    try 
+    {
+        mPlus = i2 - m;
+    }
+    catch (const std::exception& e)
+    {
+        cout << "\n" << e.what() << "\n";
+    }
+
+
     std::cin.get();
     return 0;
 }
