@@ -17,19 +17,18 @@ public:
 	Matrix(const Matrix& input);
 	virtual ~Matrix();
 
+	static Matrix Identity(const unsigned int size);
+
 	unsigned int Rows() { return rows; }
 	unsigned int Columns() { return cols; }
 
-	void Print();
-
 	double& operator()(const unsigned int row, const unsigned int col);
+	const double& operator()(const unsigned int row, const unsigned int col) const;	
 
 	Matrix operator+(const Matrix& other);
 	Matrix operator-(const Matrix& other);
 
-	const double& operator()(const unsigned int row, const unsigned int col) const;
-
-	static Matrix Identity(const unsigned int size);
+	void Print();
 };
 
 

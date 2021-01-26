@@ -18,6 +18,15 @@ Matrix::Matrix(const Matrix& input)
 	entries = input.entries;
 }
 
+Matrix::~Matrix() {}
+
+Matrix Matrix::Identity(const unsigned int size)
+{
+	Matrix m = Matrix(size, size);
+	for (unsigned int i = 0; i < size; i++) m(i, i) = 1.0;
+	return m;
+}
+
 double& Matrix::operator()(const unsigned int row, const unsigned int col)
 {
 	if (row >= rows || col >= cols) throw std::out_of_range("Invalid index value.");
@@ -63,15 +72,6 @@ Matrix Matrix::operator-(const Matrix& other)
 	}
 
 	return output;
-}
-
-Matrix::~Matrix() {}
-
-Matrix Matrix::Identity(const unsigned int size)
-{
-	Matrix m = Matrix(size, size);
-	for (unsigned int i = 0; i < size; i++) m(i, i) = 1.0;
-	return m;
 }
 
 void Matrix::Print() 
