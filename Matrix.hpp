@@ -2,6 +2,7 @@
 #define MATRIX_H
 
 #include <vector>
+#include <ostream>
 
 class Matrix
 {
@@ -28,8 +29,7 @@ public:
 	Matrix operator+(const Matrix& other);
 	Matrix operator-(const Matrix& other);
 
-	void Print();
+	friend std::ostream& operator<<(std::ostream& output, const Matrix& m);
 };
-
 
 #endif

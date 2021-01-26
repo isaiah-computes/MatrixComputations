@@ -12,17 +12,17 @@ int main()
     m(1, 1) = 2;
     m(2, 2) = 3;
 
-    m.Print();
+    cout << m;
 
     Matrix identity = Matrix::Identity(3);
 
     Matrix mPlus = identity + m;
     cout << "\n";
-    mPlus.Print();
+    cout << mPlus;
 
     Matrix mMinus = identity - m;
     cout << "\n";
-    mMinus.Print();
+    cout << mMinus;
 
     try 
     {

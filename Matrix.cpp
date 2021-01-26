@@ -74,14 +74,16 @@ Matrix Matrix::operator-(const Matrix& other)
 	return output;
 }
 
-void Matrix::Print() 
+std::ostream& operator<<(std::ostream& output, const Matrix& m)
 {
-	for (int i = 0; i < rows; i++)
+	for (int i = 0; i < m.rows; i++)
 	{
-		for (int j = 0; j < cols; j++)
+		for (int j = 0; j < m.cols; j++)
 		{
-			std::cout << " " << entries[i][j] << " ";
+			std::cout << " " << m.entries[i][j] << " ";
 		}
 		std::cout << "\n";
 	}
+
+	return output;
 }
