@@ -28,6 +28,7 @@ public:
 
 	Matrix operator+(const Matrix& other);
 	Matrix operator-(const Matrix& other);
+	Matrix operator*(const Matrix& other);
 
 	friend std::ostream& operator<<(std::ostream& output, const Matrix& m);
 };

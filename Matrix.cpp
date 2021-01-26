@@ -74,6 +74,26 @@ Matrix Matrix::operator-(const Matrix& other)
 	return output;
 }
 
+Matrix Matrix::operator*(const Matrix& other)
+{
+	if (rows != other.cols || cols != other.rows) throw std::invalid_argument("Cannot multiply matrices (invalid dimensions).");
+
+	Matrix output(rows, other.cols);
+
+	for (unsigned int i = 0; i < rows; i++) 
+	{
+		for (unsigned int j = 0; j < other.cols; j++) 
+		{
+			for (unsigned int k = 0; k < cols; k++) 
+			{
+				output(i, j) += this->entries[i][k] * other(k, j);
+			}
+		}
+	}
+
+	return output;
+}
+
 std::ostream& operator<<(std::ostream& output, const Matrix& m)
 {
 	for (int i = 0; i < m.rows; i++)
