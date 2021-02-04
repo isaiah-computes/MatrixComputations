@@ -1,5 +1,7 @@
 /Debug
 /x64
+.vscode/
 .vs/
 *.vcx*
 *.sln
+mcomp

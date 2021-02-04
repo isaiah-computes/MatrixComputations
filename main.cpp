@@ -6,6 +6,9 @@ using std::cout;
 
 int main()
 {
+
+    std::string vs("this is an editor");
+    
     // quick test of element assignment
     Matrix m(3, 3);
     m(0, 0) = 1;
