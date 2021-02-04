@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "Matrix.hpp"
+#include "../src/Matrix.hpp"
 
 using std::cout;
 

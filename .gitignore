@@ -5,3 +5,4 @@
 *.vcx*
 *.sln
 mcomp
+run_tests
