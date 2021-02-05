@@ -67,13 +67,30 @@ TEST_CASE("Illegal multiplication dimensions throw exception"){
     REQUIRE_THROWS_AS(m1 * m1, std::invalid_argument);
 }
 
-TEST_CASE("Multiplication by identity has no impact") {
+TEST_CASE("Left ultiplication by identity has no impact") {
 
     int rows = 4;
     int cols = 5;
     Matrix mat = Matrix::Random(rows, cols);
     Matrix ident = Matrix::Identity(rows);
     Matrix prod = ident * mat;
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            REQUIRE(prod(i, j) == mat(i, j));
+        }
+    }
+}
+
+TEST_CASE("Right ultiplication by identity has no impact") {
+
+    int rows = 4;
+    int cols = 5;
+    Matrix mat = Matrix::Random(rows, cols);
+    Matrix ident = Matrix::Identity(cols);
+    Matrix prod = mat * ident;
 
     for (int i = 0; i < rows; i++)
     {
