@@ -19,6 +19,7 @@ public:
 	virtual ~Matrix();
 
 	static Matrix Identity(const unsigned int size);
+	static Matrix Random(const unsigned int rows, const unsigned int columns);
 
 	unsigned int Rows() { return rows; }
 	unsigned int Columns() { return cols; }

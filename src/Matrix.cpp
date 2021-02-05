@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <random>
 #include "Matrix.hpp"
 
 Matrix::Matrix(unsigned int NumberRows, unsigned int NumberCols)
@@ -22,8 +23,26 @@ Matrix::~Matrix() {}
 
 Matrix Matrix::Identity(const unsigned int size)
 {
-	Matrix m = Matrix(size, size);
+	Matrix m(size, size);
 	for (unsigned int i = 0; i < size; i++) m(i, i) = 1.0;
+	return m;
+}
+
+Matrix Matrix::Random(const unsigned int rows, const unsigned int columns)
+{
+	std::default_random_engine re;
+	std::uniform_real_distribution<double> rand_vals(0.0, 1.0);
+
+	Matrix m(rows, columns);
+
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			m(i, j) = rand_vals(re);
+		}
+	}
+
 	return m;
 }
 
