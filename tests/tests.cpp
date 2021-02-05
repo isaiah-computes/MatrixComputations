@@ -16,6 +16,7 @@ TEST_CASE("Invalid index values throw exception") {
 }
 
 TEST_CASE("Addition and Subtraction Require Same Dimensions") {
+
     Matrix m1 = Matrix::Random(5, 7);
     Matrix m2 = Matrix::Random(7, 5);
 
