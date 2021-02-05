@@ -95,7 +95,7 @@ Matrix Matrix::operator-(const Matrix& other)
 
 Matrix Matrix::operator*(const Matrix& other)
 {
-	if (rows != other.cols || cols != other.rows) throw std::invalid_argument("Cannot multiply matrices (invalid dimensions).");
+	if (cols != other.rows) throw std::invalid_argument("Cannot multiply matrices (invalid dimensions).");
 
 	Matrix output(rows, other.cols);
 
