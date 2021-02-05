@@ -15,7 +15,7 @@ TEST_CASE("Invalid index values throw exception") {
     REQUIRE_THROWS_AS(m(0, 5), std::out_of_range);
 }
 
-TEST_CASE("Addition and Subtraction Require Same Dimensions") {
+TEST_CASE("Addition and subtraction require same dimensions") {
 
     Matrix m1 = Matrix::Random(5, 7);
     Matrix m2 = Matrix::Random(7, 5);
@@ -56,6 +56,30 @@ TEST_CASE( "Identity generates diagonal matrix of ones") {
         {
             if (i == j) REQUIRE(m(i, j) == 1.0);
             else REQUIRE(m(i, j) == 0.0);
+        }
+    }
+}
+
+TEST_CASE("Illegal multiplication dimensions throw exception"){
+
+    Matrix m1 = Matrix::Random(4, 5);
+
+    REQUIRE_THROWS_AS(m1 * m1, std::invalid_argument);
+}
+
+TEST_CASE("Multiplication by identity has no impact") {
+
+    int rows = 4;
+    int cols = 5;
+    Matrix mat = Matrix::Random(rows, cols);
+    Matrix ident = Matrix::Identity(rows);
+    Matrix prod = ident * mat;
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            REQUIRE(prod(i, j) == mat(i, j));
         }
     }
 }
