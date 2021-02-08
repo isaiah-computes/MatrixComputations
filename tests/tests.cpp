@@ -132,11 +132,30 @@ TEST_CASE("Right ultiplication by identity has no impact") {
     }
 }
 
-/*TEST_CASE("Writing and reading matrices are consistent operations") {
+
+TEST_CASE("Writing and reading matrices maintain dimensions") {
 
     Matrix m = Matrix::Random(7, 12);
     m.ToFile("test_mat.txt");
     Matrix m2 = Matrix::FromFile("test_mat.txt");
 
+    REQUIRE(m.Rows() == m2.Rows());
+    REQUIRE(m.Columns() == m2.Columns());
+}
 
-}*/
+TEST_CASE("Writing and reading matrices maintain values") {
+
+    Matrix m = Matrix::Random(7, 12);
+    m.ToFile("test_mat.txt");
+    Matrix m2 = Matrix::FromFile("test_mat.txt");
+    bool matching_matrices = m == m2;
+
+    REQUIRE(matching_matrices == true);
+
+    /*for (int i = 0; i < m.Rows(); i++)
+    {
+        for (int j = 0; j < m.Columns(); j++) {
+            REQUIRE_THAT(m2(i, j), Catch::Matchers::WithinRel(m(i, j)));
+        }
+    }*/
+}
