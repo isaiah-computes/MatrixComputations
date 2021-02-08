@@ -132,6 +132,22 @@ TEST_CASE("Right ultiplication by identity has no impact") {
     }
 }
 
+TEST_CASE("Matrix multiplication products are valid")
+{
+    // using randomly generated matrices and their product
+    // from NumPy :
+    Matrix m1 = Matrix::FromFile("matmul_m1.txt", ' ');
+    Matrix m2 = Matrix::FromFile("matmul_m2.txt", ' ');
+    Matrix m3 = Matrix::FromFile("matmul_m3.txt", ' ');
+    Matrix m4 = m1 * m2;
+
+    for (int i = 0; i < m4.Rows(); i++)
+    {
+        for (int j = 0; j < m4.Columns(); j++) {
+            REQUIRE_THAT(m3(i, j), Catch::Matchers::WithinRel(m4(i, j)));
+        }
+    }
+}
 
 TEST_CASE("Writing and reading matrices maintain dimensions") {
 
@@ -151,11 +167,4 @@ TEST_CASE("Writing and reading matrices maintain values") {
     bool matching_matrices = m == m2;
 
     REQUIRE(matching_matrices == true);
-
-    /*for (int i = 0; i < m.Rows(); i++)
-    {
-        for (int j = 0; j < m.Columns(); j++) {
-            REQUIRE_THAT(m2(i, j), Catch::Matchers::WithinRel(m(i, j)));
-        }
-    }*/
 }
