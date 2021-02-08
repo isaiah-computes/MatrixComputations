@@ -33,7 +33,8 @@ Matrix Matrix::Identity(const unsigned int size)
 
 Matrix Matrix::Random(const unsigned int rows, const unsigned int columns)
 {
-	std::default_random_engine re;
+	std::random_device rd;
+	std::default_random_engine re(rd());
 	std::uniform_real_distribution<double> rand_vals(0.0, 1.0);
 
 	Matrix m(rows, columns);
