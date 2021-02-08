@@ -44,6 +44,13 @@ TEST_CASE("Addition and subtraction function properly") {
     }
 }
 
+TEST_CASE("Illegal multiplication dimensions throw exception") {
+
+    Matrix m1 = Matrix::Random(4, 5);
+
+    REQUIRE_THROWS_AS(m1 * m1, std::invalid_argument);
+}
+
 TEST_CASE("Matrix multiplication products have correct dimensions") {
 
     int dim_one = 2 + rand() % 15;

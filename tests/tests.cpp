@@ -42,13 +42,6 @@ TEST_CASE( "Identity generates diagonal matrix of ones") {
     }
 }
 
-TEST_CASE("Illegal multiplication dimensions throw exception"){
-
-    Matrix m1 = Matrix::Random(4, 5);
-
-    REQUIRE_THROWS_AS(m1 * m1, std::invalid_argument);
-}
-
 TEST_CASE("Writing and reading matrices maintain dimensions") {
 
     Matrix m = Matrix::Random(7, 12);
@@ -67,4 +60,19 @@ TEST_CASE("Writing and reading matrices maintain values") {
     bool matching_matrices = m == m2;
 
     REQUIRE(matching_matrices == true);
+}
+
+TEST_CASE("Matrix transpose produces correct output") {
+
+    int num_rows = 11;
+    int num_cols = 5;
+    Matrix m1 = Matrix::Random(num_rows, num_cols);
+    Matrix m2 = m1.Transpose();
+
+    for (int i = 0; i < num_rows; i++)
+    {
+        for (int j = 0; j < num_cols; j++) {
+            REQUIRE(m2(j, i) == m1(i, j));
+        }
+    }
 }
