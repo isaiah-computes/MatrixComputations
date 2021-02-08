@@ -135,6 +135,20 @@ Matrix Matrix::operator*(const Matrix& other)
 	return output;
 }
 
+Matrix Matrix::Transpose()
+{
+	Matrix m(cols, rows);
+
+	for (unsigned int i = 0; i < rows; i++)
+	{
+		for (unsigned int j = 0; j < cols; j++) {
+			m(j, i) = entries[i][j];
+		}
+	}
+
+	return m;
+}
+
 void Matrix::ToFile(const std::string file_name, const char delimiter)
 {
 	std::ofstream out_file;
