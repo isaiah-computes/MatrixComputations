@@ -7,3 +7,4 @@
 *.sln
 mcomp
 run_tests
+tests/test_mat.txt
