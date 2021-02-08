@@ -1,6 +1,9 @@
-
+#include <algorithm>
+#include <fstream>
 #include <iostream>
+#include <iomanip> 
 #include <random>
+#include <sstream>
 #include "Matrix.hpp"
 
 Matrix::Matrix(unsigned int NumberRows, unsigned int NumberCols)
@@ -129,6 +132,69 @@ Matrix Matrix::operator*(const Matrix& other)
 	}
 
 	return output;
+}
+
+void Matrix::ToFile(const std::string file_name, const char delimiter)
+{
+	std::ofstream out_file;
+	out_file.open(file_name);
+	
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			out_file << std::setprecision(17) << this->entries[i][j];
+			if (j < cols - 1) out_file << ",";
+		}
+		out_file << "\n";
+	}
+
+	out_file.close();
+}
+
+Matrix Matrix::FromFile(const std::string file_name, const char delimiter)
+{
+	std::ifstream in(file_name);
+
+	if (!in) throw std::ios_base::failure("Error opening file " + file_name);
+
+	std::vector<std::string> lines;
+	std::string line;
+	while (std::getline(in, line))
+	{
+		lines.push_back(line);
+	}
+
+	unsigned int num_rows = lines.size();
+	unsigned int num_cols = std::count(lines[0].begin(), lines[0].end(), delimiter);
+
+	for (unsigned int i = 1; i < num_rows; i++)
+	{
+		if (std::count(lines[0].begin(), lines[0].end(), delimiter) != num_cols)
+			throw std::invalid_argument("Number of columns in file is not consistent.");
+	}
+
+	num_cols++;
+	Matrix m(num_rows, num_cols);
+
+	for (unsigned int i = 0; i < num_rows; i++)
+	{
+		unsigned int curr_column = 0;
+		std::string curr_entry;
+		
+		for (std::string::iterator it = lines[i].begin(); it != lines[i].end(); ++it) {
+			if (*it != delimiter) curr_entry.push_back(*it);
+			else {
+				m(i, curr_column) = std::stod(curr_entry);
+				curr_column++;
+				curr_entry.clear();
+			}
+
+			if (it == lines[i].end()-1) m(i, curr_column) = std::stod(curr_entry);
+		}
+	}
+
+	return m;
 }
 
 std::ostream& operator<<(std::ostream& output, const Matrix& m)
