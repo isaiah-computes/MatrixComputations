@@ -58,6 +58,24 @@ const double& Matrix::operator()(const unsigned int row, const unsigned int col)
 	return this->entries[row][col];
 }
 
+bool Matrix::operator==(const Matrix& other)
+{
+	if (rows != other.rows || cols != other.cols) throw std::invalid_argument("Matrices not same dimensions");
+	bool result = true;
+
+	for (int i = 0; i < rows; i++){
+		for (int j = 0; j < cols; j++) {
+			if (this->entries[i][j] != other(i, j))
+			{
+				result = false;
+				break;
+			}
+		}
+		if (!result) break;
+	}
+
+	return result;
+}
 
 Matrix Matrix::operator+(const Matrix& other)
 {

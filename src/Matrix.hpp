@@ -30,7 +30,10 @@ public:
 	Matrix operator+(const Matrix& other);
 	Matrix operator-(const Matrix& other);
 	Matrix operator*(const Matrix& other);
+	bool operator==(const Matrix& other);
 
+	//void ToFile(const std::string file_name, const char delimiter = ',');
+	//static Matrix FromFile(const std::string file_name, const char delimiter = ',');
 	friend std::ostream& operator<<(std::ostream& output, const Matrix& m);
 };
 
