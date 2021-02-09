@@ -21,8 +21,8 @@ public:
 	static Matrix Identity(const unsigned int size);
 	static Matrix Random(const unsigned int rows, const unsigned int columns);
 
-	unsigned int Rows() { return rows; }
-	unsigned int Columns() { return cols; }
+	unsigned int Rows() const { return rows; }
+	unsigned int Columns() const { return cols; }
 
 	double& operator()(const unsigned int row, const unsigned int col);
 	const double& operator()(const unsigned int row, const unsigned int col) const;	
