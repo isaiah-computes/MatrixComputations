@@ -1,8 +1,12 @@
 ## MatrixComputations
 
-Simple repository containing C++ implementations of common matrix operations. 
+Simple repository containing C++ implementations of common matrix operations. While there are many C++ libraries with extensive linear algebra functionality, the primary purpose of this project is for practice. Some key goals of this exercise are:
 
-Primary purpose is for practicing Test Driven Development; there are many C++ libraries with much more extensive linear algebra functionality.
+* Increase familiarization with C++ syntax and methods
+* Correctly implement useful numerical algorithms
+* Improve Test Driven Development (TDD) practices
+
+Presently tests are written using the single header implementation of [Catch v2.13.4](https://github.com/catchorg/Catch2/tree/v2.x).
 
 ### References
 Golub, G. H., & Van Loan, C. F. (2013). *Matrix Computations*. JHU press.
