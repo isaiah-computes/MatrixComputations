@@ -31,6 +31,11 @@ TEST_CASE("LU Decomoposiiton is correct") {
 		}
 	}
 
-	bool equivalance = A == (L * U);
-	REQUIRE(equivalance == true);
+	Matrix B = L * U; 
+	
+	for (int i = 0; i < size; i++)	{
+		for (int j = 0; j < size; j++) {
+			REQUIRE_THAT(A(i, j), Catch::Matchers::WithinRel(B(i, j)));
+		}
+	}
 }
