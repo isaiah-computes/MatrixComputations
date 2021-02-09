@@ -17,13 +17,37 @@ TEST_CASE("Constructor generates correct dimensions") {
     REQUIRE(m.Columns() == num_cols);
 }
 
-TEST_CASE("Invalid index values throw exception") {
+TEST_CASE("Indexing by row and column works correctly") {
 
-    Matrix m(4, 5);
+    int num_rows = 4;
+    int num_cols = 5;
 
-    REQUIRE_THROWS_AS(m(4, 0), std::out_of_range);
-    REQUIRE_THROWS_AS(m(0, 5), std::out_of_range);
-    REQUIRE_THROWS_AS(m(-1, 0), std::out_of_range);
+    Matrix m(num_rows, num_cols);
+    int curr_entry = 0;
+
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; j < num_cols; j++) {
+            m(i, j) = curr_entry;
+            curr_entry++;
+        }
+    }
+
+    SECTION( "invalid indices throw an exception" ) {
+        REQUIRE_THROWS_AS(m(num_rows, 0), std::out_of_range);
+        REQUIRE_THROWS_AS(m(0, num_cols), std::out_of_range);
+        REQUIRE_THROWS_AS(m(-1, 0), std::out_of_range);
+        REQUIRE_THROWS_AS(m(0, -1), std::out_of_range);
+    }
+
+    SECTION( "entry retrieval returns correct values" ) {
+        curr_entry = 0;
+        for (int i = 0; i < num_rows; i++) {
+            for (int j = 0; j < num_cols; j++) {
+                REQUIRE(m(i, j) == curr_entry);
+                curr_entry++;
+            }
+        }
+    }
 }
 
 TEST_CASE( "Identity generates diagonal matrix of ones") {
