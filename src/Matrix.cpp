@@ -11,8 +11,7 @@ Matrix::Matrix(unsigned int NumberRows, unsigned int NumberCols)
 	rows = NumberRows;
 	cols = NumberCols;
 
-	entries.resize(rows);
-	for (unsigned int i = 0; i < rows; i++) entries[i].resize(cols);
+	entries.resize(rows * cols);
 }
 
 Matrix::Matrix(const Matrix& input) 
@@ -23,6 +22,11 @@ Matrix::Matrix(const Matrix& input)
 }
 
 Matrix::~Matrix() {}
+
+int Matrix::Index(unsigned int row, unsigned int col) const
+{
+	return row * cols + col;
+}
 
 Matrix Matrix::Identity(const unsigned int size)
 {
@@ -53,13 +57,13 @@ Matrix Matrix::Random(const unsigned int rows, const unsigned int columns)
 double& Matrix::operator()(const unsigned int row, const unsigned int col)
 {
 	if (row >= rows || col >= cols) throw std::out_of_range("Invalid index value.");
-	return this->entries[row][col];
+	return this->entries[Index(row, col)];
 }
 
 const double& Matrix::operator()(const unsigned int row, const unsigned int col) const
 {
 	if (row >= rows || col >= cols) throw std::out_of_range("Invalid index value.");
-	return this->entries[row][col];
+	return this->entries[Index(row, col)];
 }
 
 bool Matrix::operator==(const Matrix& other)
@@ -69,7 +73,7 @@ bool Matrix::operator==(const Matrix& other)
 
 	for (int i = 0; i < rows; i++){
 		for (int j = 0; j < cols; j++) {
-			if (this->entries[i][j] != other(i, j))
+			if (this->entries[Index(i, j)] != other(i, j))
 			{
 				result = false;
 				break;
@@ -91,7 +95,7 @@ Matrix Matrix::operator+(const Matrix& other)
 	{
 		for (unsigned int j = 0; j < cols; j++)
 		{
-			output(i, j) = this->entries[i][j] + other(i, j);
+			output(i, j) = this->entries[Index(i, j)] + other(i, j);
 		}
 	}
 
@@ -108,7 +112,7 @@ Matrix Matrix::operator-(const Matrix& other)
 	{
 		for (unsigned int j = 0; j < cols; j++)
 		{
-			output(i, j) = this->entries[i][j] - other(i, j);
+			output(i, j) = this->entries[Index(i, j)] - other(i, j);
 		}
 	}
 
@@ -127,7 +131,7 @@ Matrix Matrix::operator*(const Matrix& other)
 		{
 			for (unsigned int k = 0; k < cols; k++) 
 			{
-				output(i, j) += this->entries[i][k] * other(k, j);
+				output(i, j) += this->entries[Index(i, k)] * other(k, j);
 			}
 		}
 	}
@@ -142,7 +146,7 @@ Matrix Matrix::Transpose()
 	for (unsigned int i = 0; i < rows; i++)
 	{
 		for (unsigned int j = 0; j < cols; j++) {
-			m(j, i) = entries[i][j];
+			m(j, i) = entries[Index(i, j)];
 		}
 	}
 
@@ -158,7 +162,7 @@ void Matrix::ToFile(const std::string file_name, const char delimiter)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			out_file << std::setprecision(17) << this->entries[i][j];
+			out_file << std::setprecision(17) << this->entries[Index(i, j)];
 			if (j < cols - 1) out_file << ",";
 		}
 		out_file << "\n";
@@ -218,7 +222,7 @@ std::ostream& operator<<(std::ostream& output, const Matrix& m)
 	{
 		for (int j = 0; j < m.cols; j++)
 		{
-			std::cout << " " << m.entries[i][j] << " ";
+			std::cout << " " << m.entries[m.Index(i, j)] << " ";
 		}
 		std::cout << "\n";
 	}
