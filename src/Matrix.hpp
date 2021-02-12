@@ -21,6 +21,7 @@ public:
 
 	static Matrix Identity(const unsigned int size);
 	static Matrix Random(const unsigned int rows, const unsigned int columns);
+	static Matrix RandomSymmetric(const unsigned int size);
 
 	unsigned int Rows() const { return rows; }
 	unsigned int Columns() const { return cols; }

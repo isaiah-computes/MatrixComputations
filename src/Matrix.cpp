@@ -54,6 +54,26 @@ Matrix Matrix::Random(const unsigned int rows, const unsigned int columns)
 	return m;
 }
 
+Matrix Matrix::RandomSymmetric(const unsigned int size)
+{
+	std::random_device rd;
+	std::default_random_engine re(rd());
+	std::uniform_real_distribution<double> rand_vals(0.0, 1.0);
+
+	Matrix m(size, size);
+
+	for (int i = 0; i < size; i++)
+	{
+		m(i, i) = rand_vals(re);
+		for (int j = i + 1; j < size; j++)
+		{
+			m(i, j) = rand_vals(re);
+			m(j, i) = m(i, j);
+		}
+	}
+
+	return m;
+}
 double& Matrix::operator()(const unsigned int row, const unsigned int col)
 {
 	if (row >= rows || col >= cols) throw std::out_of_range("Invalid index value.");
