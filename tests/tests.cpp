@@ -66,6 +66,18 @@ TEST_CASE( "Identity generates diagonal matrix of ones") {
     }
 }
 
+TEST_CASE("RandomSymmetric generator produces symmetric matrix") {
+
+    int size = 7;
+    Matrix m = Matrix::RandomSymmetric(size);
+
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            REQUIRE(m(i, j) == m(j, i));
+        }
+    }
+}
+
 TEST_CASE("Writing and reading matrices maintain dimensions") {
 
     Matrix m = Matrix::Random(7, 12);
