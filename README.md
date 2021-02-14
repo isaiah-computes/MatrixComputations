@@ -1,6 +1,6 @@
 ## MatrixComputations
 
-Simple repository containing C++ implementations of common matrix operations. While there are many C++ libraries with extensive linear algebra functionality, the primary purpose of this project is for practice. Some key goals of this exercise are:
+Simple repository containing C++ implementations of common matrix operations. While there are many C++ libraries with extensive linear algebra functionality, the primary purpose of this project is practice. Some key goals of this exercise are:
 
 * Increase familiarization with C++ syntax and methods
 * Correctly implement useful numerical algorithms

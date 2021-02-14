@@ -1,5 +1,5 @@
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef MATRIXCOMPS_MATRIX_H
+#define MATRIXCOMPS_MATRIX_H
 
 #include <vector>
 #include <ostream>
@@ -21,6 +21,7 @@ public:
 
 	static Matrix Identity(const unsigned int size);
 	static Matrix Random(const unsigned int rows, const unsigned int columns);
+	static Matrix RandomSymmetric(const unsigned int size);
 	static Matrix RandomInteger(const unsigned int rows, const unsigned int columns, const int min_value, const int max_value);
 
 	unsigned int Rows() const { return rows; }
