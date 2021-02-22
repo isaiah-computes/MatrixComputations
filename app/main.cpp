@@ -1,11 +1,54 @@
-
+#include <algorithm>
+#include <chrono>
+#include <execution>
 #include <iostream>
+#include <numeric>
 #include "../src/Matrix.hpp"
 
 using std::cout;
 
 int main()
 {
+
+    int num_observations = 2500;
+    int num_dimensions = 175;
+
+    Matrix m1 = Matrix::Random(num_observations, num_dimensions);
+    Matrix m2 = Matrix::RandomSymmetric(num_dimensions);
+
+    std::cout << "Executing standard multiplication..." << "\n";
+    auto t1 = std::chrono::high_resolution_clock::now();
+    Matrix rotated_data = m1 * m2;
+    auto t2 = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count();
+    std::cout << "Data rotated. Time elapsed " << duration << "\n";
+    
+    std::vector<int> row_indices(num_observations);
+    std::iota(row_indices.begin(), row_indices.end(), 0);
+
+    std::cout << "\nExecuting parallel multiplication..." << "\n";
+
+    t1 = std::chrono::high_resolution_clock::now();
+
+    Matrix output(num_observations, num_dimensions);
+
+    std::for_each(
+        std::execution::par_unseq, row_indices.begin(), row_indices.end(), [&](int i)
+        {
+            for (int j = 0; j < num_dimensions; j++) {
+                for (int k = 0; k < num_dimensions; k++) {
+                    output(i, j) += m1(i, j) * m2(k, j);
+                }
+            }
+        });
+
+    t2 = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count();
+    std::cout << "Data rotated. Time elapsed " << duration << "\n";
+    std::cin.get();
+    
+
     /*
     // output from random constructor
     Matrix m2 = Matrix::Random(5, 7);
@@ -29,6 +72,7 @@ int main()
     cout << m3.Rows() << "  x  " << m3.Columns() << "\n";
     cout << m3;*/
 
+    /*
     Matrix m1 = Matrix::FromFile("../tests/matmul_m1.txt", ' ');
     Matrix m2 = Matrix::FromFile("../tests/matmul_m2.txt", ' ');
     Matrix m3 = Matrix::FromFile("../tests/matmul_m3.txt", ' ');
@@ -43,4 +87,5 @@ int main()
 
     std::cin.get();
     return 0;
+    */
 }
