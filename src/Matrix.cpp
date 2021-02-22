@@ -106,6 +106,16 @@ const double& Matrix::operator()(const unsigned int row, const unsigned int col)
 	return this->entries[Index(row, col)];
 }
 
+double& Matrix::ValueAt(const unsigned int row, const unsigned int col)
+{
+	return entries[Index(row, col)];
+}
+
+const double& Matrix::ValueAt(const unsigned int row, const unsigned int col) const
+{
+	return entries[Index(row, col)];
+}
+
 double& Matrix::operator()(const unsigned int index)
 {
 	if (index >= entries.size()) throw std::out_of_range("Invalid index value.");
@@ -183,7 +193,8 @@ Matrix Matrix::operator*(const Matrix& other)
 		{
 			for (unsigned int k = 0; k < cols; k++) 
 			{
-				output(i, j) += this->entries[Index(i, k)] * other(k, j);
+				//output(i, j) += this->entries[Index(i, k)] * other(k, j);
+				output.ValueAt(i, j) += this->entries[Index(i, k)] * other.ValueAt(k, j);
 			}
 		}
 	}
