@@ -30,6 +30,12 @@ public:
 	double& operator()(const unsigned int row, const unsigned int col);
 	const double& operator()(const unsigned int row, const unsigned int col) const;	
 
+	double& operator()(const unsigned int index);
+	const double& operator()(const unsigned int index) const;
+
+	double& operator[](const unsigned int index) { return entries[index]; }
+	const double& operator[](const unsigned int index) const { return entries[index]; }
+
 	Matrix operator+(const Matrix& other);
 	Matrix operator-(const Matrix& other);
 	Matrix operator*(const Matrix& other);

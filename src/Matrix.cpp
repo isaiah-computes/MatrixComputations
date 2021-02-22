@@ -106,6 +106,18 @@ const double& Matrix::operator()(const unsigned int row, const unsigned int col)
 	return this->entries[Index(row, col)];
 }
 
+double& Matrix::operator()(const unsigned int index)
+{
+	if (index >= entries.size()) throw std::out_of_range("Invalid index value.");
+	return this->entries[index];
+}
+
+const double& Matrix::operator()(const unsigned int index) const
+{
+	if (index >= entries.size()) throw std::out_of_range("Invalid index value.");
+	return this->entries[index];
+}
+
 bool Matrix::operator==(const Matrix& other)
 {
 	if (rows != other.rows || cols != other.cols) throw std::invalid_argument("Matrices not same dimensions");
