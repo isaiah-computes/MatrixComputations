@@ -37,7 +37,7 @@ int main()
         {
             for (int j = 0; j < num_dimensions; j++) {
                 for (int k = 0; k < num_dimensions; k++) {
-                    output.ValueAt(i, j) += m1.ValueAt(i, j) * m2.ValueAt(k, j);
+                    output.ValueAt(i, j) += m1.ValueAt(i, k) * m2.ValueAt(k, j);
                 }
             }
         });
