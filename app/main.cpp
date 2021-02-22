@@ -9,9 +9,8 @@ using std::cout;
 
 int main()
 {
-
-    int num_observations = 2500;
-    int num_dimensions = 175;
+    int num_observations = 4500;
+    int num_dimensions = 150;
 
     Matrix m1 = Matrix::Random(num_observations, num_dimensions);
     Matrix m2 = Matrix::RandomSymmetric(num_dimensions);
@@ -38,7 +37,7 @@ int main()
         {
             for (int j = 0; j < num_dimensions; j++) {
                 for (int k = 0; k < num_dimensions; k++) {
-                    output(i, j) += m1(i, j) * m2(k, j);
+                    output.ValueAt(i, j) += m1.ValueAt(i, j) * m2.ValueAt(k, j);
                 }
             }
         });
