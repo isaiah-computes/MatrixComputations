@@ -29,8 +29,8 @@ public:
 
 	double& operator()(const unsigned int row, const unsigned int col);
 	const double& operator()(const unsigned int row, const unsigned int col) const;	
-	double& ValueAt(const unsigned int row, const unsigned int col);
-	const double& ValueAt(const unsigned int row, const unsigned int col) const;
+	double& At(const unsigned int row, const unsigned int col);
+	const double& At(const unsigned int row, const unsigned int col) const;
 
 	double& operator()(const unsigned int index);
 	const double& operator()(const unsigned int index) const;
