@@ -33,10 +33,10 @@ TEST_CASE("Indexing by row and column works correctly") {
     }
 
     SECTION( "invalid indices throw an exception" ) {
-        REQUIRE_THROWS_AS(m(num_rows, 0), std::out_of_range);
-        REQUIRE_THROWS_AS(m(0, num_cols), std::out_of_range);
-        REQUIRE_THROWS_AS(m(-1, 0), std::out_of_range);
-        REQUIRE_THROWS_AS(m(0, -1), std::out_of_range);
+        REQUIRE_THROWS_AS(m.At(num_rows, 0), std::out_of_range);
+        REQUIRE_THROWS_AS(m.At(0, num_cols), std::out_of_range);
+        REQUIRE_THROWS_AS(m.At(-1, 0), std::out_of_range);
+        REQUIRE_THROWS_AS(m.At(0, -1), std::out_of_range);
     }
 
     SECTION( "entry retrieval returns correct values" ) {
@@ -44,6 +44,7 @@ TEST_CASE("Indexing by row and column works correctly") {
         for (int i = 0; i < num_rows; i++) {
             for (int j = 0; j < num_cols; j++) {
                 REQUIRE(m(i, j) == curr_entry);
+                REQUIRE(m.At(i, j) == curr_entry);
                 curr_entry++;
             }
         }
