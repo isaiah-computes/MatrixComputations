@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "../src/Matrix.hpp"
+#include "Matrix.hpp"
 
 
 // interesting : catch2 supports vector comparisons

@@ -1,6 +1,6 @@
 #include "Catch.hpp"
-#include "../src/Matrix.hpp"
-#include "../src/MatrixDecompositions.hpp"
+#include "Matrix.hpp"
+#include "MatrixDecompositions.hpp"
 
 TEST_CASE("LU Decomoposiiton requires square input") {
 
