@@ -16,7 +16,7 @@ public:
 
 	Matrix(unsigned int NumberRows, unsigned int NumberCols);
 	Matrix(const Matrix& input);
-	int Index(unsigned int row, unsigned int col) const;
+	unsigned int Index(unsigned int row, unsigned int col) const;
 	virtual ~Matrix();
 
 	static Matrix Identity(const unsigned int size);
