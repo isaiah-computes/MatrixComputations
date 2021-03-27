@@ -23,7 +23,7 @@ Matrix::Matrix(const Matrix& input)
 
 Matrix::~Matrix() {}
 
-int Matrix::Index(unsigned int row, unsigned int col) const
+unsigned int Matrix::Index(unsigned int row, unsigned int col) const
 {
 	return row * cols + col;
 }
@@ -43,9 +43,9 @@ Matrix Matrix::Random(const unsigned int rows, const unsigned int columns)
 
 	Matrix m(rows, columns);
 
-	for (int i = 0; i < rows; i++)
+	for (unsigned int i = 0; i < rows; i++)
 	{
-		for (int j = 0; j < columns; j++)
+		for (unsigned int j = 0; j < columns; j++)
 		{
 			m(i, j) = rand_vals(re);
 		}
@@ -62,10 +62,10 @@ Matrix Matrix::RandomSymmetric(const unsigned int size)
 
 	Matrix m(size, size);
 
-	for (int i = 0; i < size; i++)
+	for (unsigned int i = 0; i < size; i++)
 	{
 		m(i, i) = rand_vals(re);
-		for (int j = i + 1; j < size; j++)
+		for (unsigned int j = i + 1; j < size; j++)
 		{
 			m(i, j) = rand_vals(re);
 			m(j, i) = m(i, j);
@@ -83,9 +83,9 @@ Matrix Matrix::RandomInteger(const unsigned int rows, const unsigned int columns
 
 	Matrix m(rows, columns);
 
-	for (int i = 0; i < rows; i++)
+	for (unsigned int i = 0; i < rows; i++)
 	{
-		for (int j = 0; j < columns; j++)
+		for (unsigned int j = 0; j < columns; j++)
 		{
 			m(i, j) = rand_vals(re);
 		}
@@ -133,8 +133,8 @@ bool Matrix::operator==(const Matrix& other)
 	if (rows != other.rows || cols != other.cols) throw std::invalid_argument("Matrices not same dimensions");
 	bool result = true;
 
-	for (int i = 0; i < rows; i++){
-		for (int j = 0; j < cols; j++) {
+	for (unsigned int i = 0; i < rows; i++){
+		for (unsigned int j = 0; j < cols; j++) {
 			if (this->entries[Index(i, j)] != other(i, j))
 			{
 				result = false;
@@ -221,9 +221,9 @@ void Matrix::ToFile(const std::string file_name, const char delimiter)
 	std::ofstream out_file;
 	out_file.open(file_name);
 	
-	for (int i = 0; i < rows; i++)
+	for (unsigned int i = 0; i < rows; i++)
 	{
-		for (int j = 0; j < cols; j++)
+		for (unsigned int j = 0; j < cols; j++)
 		{
 			out_file << std::setprecision(17) << this->entries[Index(i, j)];
 			if (j < cols - 1) out_file << ",";
@@ -281,9 +281,9 @@ Matrix Matrix::FromFile(const std::string file_name, const char delimiter)
 
 std::ostream& operator<<(std::ostream& output, const Matrix& m)
 {
-	for (int i = 0; i < m.rows; i++)
+	for (unsigned int i = 0; i < m.rows; i++)
 	{
-		for (int j = 0; j < m.cols; j++)
+		for (unsigned int j = 0; j < m.cols; j++)
 		{
 			std::cout << " " << m.entries[m.Index(i, j)] << " ";
 		}
