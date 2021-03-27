@@ -1,4 +1,4 @@
-#include "Catch.hpp"
+#include "catch.hpp"
 #include "Matrix.hpp"
 #include "MatrixDecompositions.hpp"
 
