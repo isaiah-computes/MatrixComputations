@@ -45,8 +45,8 @@ public:
 
 	Matrix Transpose();
 
-	void ToFile(const std::string file_name, const char delimiter = ',');
-	static Matrix FromFile(const std::string file_name, const char delimiter = ',');
+	void ToFile(const std::string& file_name, const char delimiter = ',');
+	static Matrix FromFile(const std::string& file_name, const char delimiter = ',');
 	friend std::ostream& operator<<(std::ostream& output, const Matrix& m);
 };
 

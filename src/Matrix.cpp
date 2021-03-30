@@ -216,7 +216,7 @@ Matrix Matrix::Transpose()
 	return m;
 }
 
-void Matrix::ToFile(const std::string file_name, const char delimiter)
+void Matrix::ToFile(const std::string& file_name, const char delimiter)
 {
 	std::ofstream out_file;
 	out_file.open(file_name);
@@ -234,7 +234,7 @@ void Matrix::ToFile(const std::string file_name, const char delimiter)
 	out_file.close();
 }
 
-Matrix Matrix::FromFile(const std::string file_name, const char delimiter)
+Matrix Matrix::FromFile(const std::string& file_name, const char delimiter)
 {
 	std::ifstream in(file_name);
 

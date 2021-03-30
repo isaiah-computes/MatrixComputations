@@ -5,7 +5,7 @@
 
 namespace MatrixDecompositions {
 
-	void LU(const Matrix A, Matrix& L, Matrix& U);
+	void LU(const Matrix& A, Matrix& L, Matrix& U);
 }
 
 #endif
