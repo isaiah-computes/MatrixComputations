@@ -14,7 +14,12 @@ private:
 public:
 	NumericVector(size_t number_elements);
 	NumericVector(std::initializer_list<double> list);
-	size_t Dimension() { return entries.size(); }
+	size_t Dimension() const { return entries.size(); }
+
+	double& operator()(const size_t index);
+	const double& operator()(const size_t index) const;
+	double& At(const size_t index);
+	const double& At(const size_t index) const;
 };
 
 #endif
