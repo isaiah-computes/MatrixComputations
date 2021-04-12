@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <ostream>
+#include "NumericVector.hpp"
 
 class Matrix
 {
@@ -15,6 +16,7 @@ private:
 public:
 
 	Matrix(size_t NumberRows, size_t NumberCols);
+	Matrix(std::initializer_list<NumericVector> input_rows);
 	Matrix(const Matrix& input);
 	size_t Index(size_t row, size_t col) const;
 	virtual ~Matrix();

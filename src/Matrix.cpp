@@ -14,6 +14,27 @@ Matrix::Matrix(size_t NumberRows, size_t NumberCols)
 	entries.resize(rows * cols);
 }
 
+Matrix::Matrix(std::initializer_list<NumericVector> input_rows)
+{
+	rows = input_rows.size();
+	auto it = input_rows.begin();
+	cols = it->Dimension();
+
+	for (it = input_rows.begin(); it != input_rows.end(); ++it){
+		if (it->Dimension() != cols) throw std::out_of_range("Inconsistent input vector dimensions.");
+	}
+
+	entries.resize(rows * cols);
+	size_t curr_entry = 0;
+
+	for (it = input_rows.begin(); it != input_rows.end(); ++it) {
+		for (size_t elem = 0; elem < cols; elem++) {
+			entries[curr_entry] = it->At(elem);
+			curr_entry++;
+		}
+	}
+}
+
 Matrix::Matrix(const Matrix& input) 
 {
 	rows = input.rows;
@@ -118,13 +139,11 @@ const double& Matrix::At(const size_t row, const size_t col) const
 
 double& Matrix::operator()(const size_t index)
 {
-	if (index >= entries.size()) throw std::out_of_range("Invalid index value.");
 	return this->entries[index];
 }
 
 const double& Matrix::operator()(const size_t index) const
 {
-	if (index >= entries.size()) throw std::out_of_range("Invalid index value.");
 	return this->entries[index];
 }
 
