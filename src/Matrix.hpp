@@ -9,34 +9,34 @@ class Matrix
 private:
 
 	std::vector<double> entries;
-	unsigned int rows;
-	unsigned int cols;
+	size_t rows;
+	size_t cols;
 
 public:
 
-	Matrix(unsigned int NumberRows, unsigned int NumberCols);
+	Matrix(size_t NumberRows, size_t NumberCols);
 	Matrix(const Matrix& input);
-	unsigned int Index(unsigned int row, unsigned int col) const;
+	size_t Index(size_t row, size_t col) const;
 	virtual ~Matrix();
 
-	static Matrix Identity(const unsigned int size);
-	static Matrix Random(const unsigned int rows, const unsigned int columns);
-	static Matrix RandomSymmetric(const unsigned int size);
-	static Matrix RandomInteger(const unsigned int rows, const unsigned int columns, const int min_value, const int max_value);
+	static Matrix Identity(const size_t size);
+	static Matrix Random(const size_t rows, const size_t columns);
+	static Matrix RandomSymmetric(const size_t size);
+	static Matrix RandomInteger(const size_t rows, const size_t columns, const int min_value, const int max_value);
 
-	unsigned int Rows() const { return rows; }
-	unsigned int Columns() const { return cols; }
+	size_t Rows() const { return rows; }
+	size_t Columns() const { return cols; }
 
-	double& operator()(const unsigned int row, const unsigned int col);
-	const double& operator()(const unsigned int row, const unsigned int col) const;	
-	double& At(const unsigned int row, const unsigned int col);
-	const double& At(const unsigned int row, const unsigned int col) const;
+	double& operator()(const size_t row, const size_t col);
+	const double& operator()(const size_t row, const size_t col) const;	
+	double& At(const size_t row, const size_t col);
+	const double& At(const size_t row, const size_t col) const;
 
-	double& operator()(const unsigned int index);
-	const double& operator()(const unsigned int index) const;
+	double& operator()(const size_t index);
+	const double& operator()(const size_t index) const;
 
-	double& operator[](const unsigned int index) { return entries[index]; }
-	const double& operator[](const unsigned int index) const { return entries[index]; }
+	double& operator[](const size_t index) { return entries[index]; }
+	const double& operator[](const size_t index) const { return entries[index]; }
 
 	Matrix operator+(const Matrix& other);
 	Matrix operator-(const Matrix& other);

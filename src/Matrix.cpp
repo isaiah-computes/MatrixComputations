@@ -6,7 +6,7 @@
 #include <sstream>
 #include "Matrix.hpp"
 
-Matrix::Matrix(unsigned int NumberRows, unsigned int NumberCols)
+Matrix::Matrix(size_t NumberRows, size_t NumberCols)
 {
 	rows = NumberRows;
 	cols = NumberCols;
@@ -23,19 +23,19 @@ Matrix::Matrix(const Matrix& input)
 
 Matrix::~Matrix() {}
 
-unsigned int Matrix::Index(unsigned int row, unsigned int col) const
+size_t Matrix::Index(size_t row, size_t col) const
 {
 	return row * cols + col;
 }
 
-Matrix Matrix::Identity(const unsigned int size)
+Matrix Matrix::Identity(const size_t size)
 {
 	Matrix m(size, size);
-	for (unsigned int i = 0; i < size; i++) m(i, i) = 1.0;
+	for (size_t i = 0; i < size; i++) m(i, i) = 1.0;
 	return m;
 }
 
-Matrix Matrix::Random(const unsigned int rows, const unsigned int columns)
+Matrix Matrix::Random(const size_t rows, const size_t columns)
 {
 	std::random_device rd;
 	std::default_random_engine re(rd());
@@ -43,9 +43,9 @@ Matrix Matrix::Random(const unsigned int rows, const unsigned int columns)
 
 	Matrix m(rows, columns);
 
-	for (unsigned int i = 0; i < rows; i++)
+	for (size_t i = 0; i < rows; i++)
 	{
-		for (unsigned int j = 0; j < columns; j++)
+		for (size_t j = 0; j < columns; j++)
 		{
 			m(i, j) = rand_vals(re);
 		}
@@ -54,7 +54,7 @@ Matrix Matrix::Random(const unsigned int rows, const unsigned int columns)
 	return m;
 }
 
-Matrix Matrix::RandomSymmetric(const unsigned int size)
+Matrix Matrix::RandomSymmetric(const size_t size)
 {
 	std::random_device rd;
 	std::default_random_engine re(rd());
@@ -62,10 +62,10 @@ Matrix Matrix::RandomSymmetric(const unsigned int size)
 
 	Matrix m(size, size);
 
-	for (unsigned int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 	{
 		m(i, i) = rand_vals(re);
-		for (unsigned int j = i + 1; j < size; j++)
+		for (size_t j = i + 1; j < size; j++)
 		{
 			m(i, j) = rand_vals(re);
 			m(j, i) = m(i, j);
@@ -75,7 +75,7 @@ Matrix Matrix::RandomSymmetric(const unsigned int size)
 	return m;
 }
 
-Matrix Matrix::RandomInteger(const unsigned int rows, const unsigned int columns, const int min_value, const int max_value)
+Matrix Matrix::RandomInteger(const size_t rows, const size_t columns, const int min_value, const int max_value)
 {
 	std::random_device rd;
 	std::default_random_engine re(rd());
@@ -83,9 +83,9 @@ Matrix Matrix::RandomInteger(const unsigned int rows, const unsigned int columns
 
 	Matrix m(rows, columns);
 
-	for (unsigned int i = 0; i < rows; i++)
+	for (size_t i = 0; i < rows; i++)
 	{
-		for (unsigned int j = 0; j < columns; j++)
+		for (size_t j = 0; j < columns; j++)
 		{
 			m(i, j) = rand_vals(re);
 		}
@@ -94,35 +94,35 @@ Matrix Matrix::RandomInteger(const unsigned int rows, const unsigned int columns
 	return m;
 }
 
-double& Matrix::operator()(const unsigned int row, const unsigned int col)
+double& Matrix::operator()(const size_t row, const size_t col)
 {
 	return this->entries[Index(row, col)];
 }
 
-const double& Matrix::operator()(const unsigned int row, const unsigned int col) const
+const double& Matrix::operator()(const size_t row, const size_t col) const
 {
 	return this->entries[Index(row, col)];
 }
 
-double& Matrix::At(const unsigned int row, const unsigned int col)
+double& Matrix::At(const size_t row, const size_t col)
 {
 	if (row >= rows || col >= cols) throw std::out_of_range("Invalid index value.");
 	return entries[Index(row, col)];
 }
 
-const double& Matrix::At(const unsigned int row, const unsigned int col) const
+const double& Matrix::At(const size_t row, const size_t col) const
 {
 	if (row >= rows || col >= cols) throw std::out_of_range("Invalid index value.");
 	return entries[Index(row, col)];
 }
 
-double& Matrix::operator()(const unsigned int index)
+double& Matrix::operator()(const size_t index)
 {
 	if (index >= entries.size()) throw std::out_of_range("Invalid index value.");
 	return this->entries[index];
 }
 
-const double& Matrix::operator()(const unsigned int index) const
+const double& Matrix::operator()(const size_t index) const
 {
 	if (index >= entries.size()) throw std::out_of_range("Invalid index value.");
 	return this->entries[index];
@@ -133,8 +133,8 @@ bool Matrix::operator==(const Matrix& other)
 	if (rows != other.rows || cols != other.cols) throw std::invalid_argument("Matrices not same dimensions");
 	bool result = true;
 
-	for (unsigned int i = 0; i < rows; i++){
-		for (unsigned int j = 0; j < cols; j++) {
+	for (size_t i = 0; i < rows; i++){
+		for (size_t j = 0; j < cols; j++) {
 			if (this->entries[Index(i, j)] != other(i, j))
 			{
 				result = false;
@@ -153,9 +153,9 @@ Matrix Matrix::operator+(const Matrix& other)
 
 	Matrix output(rows, cols);
 
-	for (unsigned int i = 0; i < rows; i++)
+	for (size_t i = 0; i < rows; i++)
 	{
-		for (unsigned int j = 0; j < cols; j++)
+		for (size_t j = 0; j < cols; j++)
 		{
 			output(i, j) = this->entries[Index(i, j)] + other(i, j);
 		}
@@ -170,9 +170,9 @@ Matrix Matrix::operator-(const Matrix& other)
 
 	Matrix output(rows, cols);
 
-	for (unsigned int i = 0; i < rows; i++)
+	for (size_t i = 0; i < rows; i++)
 	{
-		for (unsigned int j = 0; j < cols; j++)
+		for (size_t j = 0; j < cols; j++)
 		{
 			output(i, j) = this->entries[Index(i, j)] - other(i, j);
 		}
@@ -187,11 +187,11 @@ Matrix Matrix::operator*(const Matrix& other)
 
 	Matrix output(rows, other.cols);
 
-	for (unsigned int i = 0; i < rows; i++) 
+	for (size_t i = 0; i < rows; i++) 
 	{
-		for (unsigned int j = 0; j < other.cols; j++) 
+		for (size_t j = 0; j < other.cols; j++) 
 		{
-			for (unsigned int k = 0; k < cols; k++) 
+			for (size_t k = 0; k < cols; k++) 
 			{
 				//output(i, j) += this->entries[Index(i, k)] * other(k, j);
 				output.At(i, j) += this->entries[Index(i, k)] * other.At(k, j);
@@ -206,9 +206,9 @@ Matrix Matrix::Transpose()
 {
 	Matrix m(cols, rows);
 
-	for (unsigned int i = 0; i < rows; i++)
+	for (size_t i = 0; i < rows; i++)
 	{
-		for (unsigned int j = 0; j < cols; j++) {
+		for (size_t j = 0; j < cols; j++) {
 			m(j, i) = entries[Index(i, j)];
 		}
 	}
@@ -221,9 +221,9 @@ void Matrix::ToFile(const std::string& file_name, const char delimiter)
 	std::ofstream out_file;
 	out_file.open(file_name);
 	
-	for (unsigned int i = 0; i < rows; i++)
+	for (size_t i = 0; i < rows; i++)
 	{
-		for (unsigned int j = 0; j < cols; j++)
+		for (size_t j = 0; j < cols; j++)
 		{
 			out_file << std::setprecision(17) << this->entries[Index(i, j)];
 			if (j < cols - 1) out_file << ",";
@@ -247,10 +247,10 @@ Matrix Matrix::FromFile(const std::string& file_name, const char delimiter)
 		lines.push_back(line);
 	}
 
-	unsigned int num_rows = lines.size();
-	unsigned int num_cols = std::count(lines[0].begin(), lines[0].end(), delimiter);
+	size_t num_rows = lines.size();
+	size_t num_cols = std::count(lines[0].begin(), lines[0].end(), delimiter);
 
-	for (unsigned int i = 1; i < num_rows; i++)
+	for (size_t i = 1; i < num_rows; i++)
 	{
 		if (std::count(lines[0].begin(), lines[0].end(), delimiter) != num_cols)
 			throw std::invalid_argument("Number of columns in file is not consistent.");
@@ -259,9 +259,9 @@ Matrix Matrix::FromFile(const std::string& file_name, const char delimiter)
 	num_cols++;
 	Matrix m(num_rows, num_cols);
 
-	for (unsigned int i = 0; i < num_rows; i++)
+	for (size_t i = 0; i < num_rows; i++)
 	{
-		unsigned int curr_column = 0;
+		size_t curr_column = 0;
 		std::string curr_entry;
 		
 		for (std::string::iterator it = lines[i].begin(); it != lines[i].end(); ++it) {
@@ -281,9 +281,9 @@ Matrix Matrix::FromFile(const std::string& file_name, const char delimiter)
 
 std::ostream& operator<<(std::ostream& output, const Matrix& m)
 {
-	for (unsigned int i = 0; i < m.rows; i++)
+	for (size_t i = 0; i < m.rows; i++)
 	{
-		for (unsigned int j = 0; j < m.cols; j++)
+		for (size_t j = 0; j < m.cols; j++)
 		{
 			std::cout << " " << m.entries[m.Index(i, j)] << " ";
 		}
