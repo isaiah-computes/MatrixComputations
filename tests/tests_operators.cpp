@@ -1,5 +1,6 @@
 #include "catch.hpp"
 #include "Matrix.hpp"
+#include "Eigen3/Dense"
 
 TEST_CASE("Equality operator tests") {
 
@@ -105,18 +106,36 @@ TEST_CASE("Right ultiplication by identity has no impact") {
     }
 }
 
-TEST_CASE("Matrix multiplication products are valid")
+Eigen::MatrixXd Copy_to_Eigen(const Matrix& m)
 {
-    // using randomly generated matrices and their product from NumPy :
-    Matrix m1 = Matrix::FromFile("matmul_m1.txt", ' ');
-    Matrix m2 = Matrix::FromFile("matmul_m2.txt", ' ');
-    Matrix m3 = Matrix::FromFile("matmul_m3.txt", ' ');
-    Matrix m4 = m1 * m2;
+    Eigen::MatrixXd em(m.Rows(), m.Columns());
 
-    for (int i = 0; i < m4.Rows(); i++)
-    {
-        for (int j = 0; j < m4.Columns(); j++) {
-            REQUIRE_THAT(m3(i, j), Catch::Matchers::WithinRel(m4(i, j)));
+    for (size_t i = 0; i < m.Rows(); i++) {
+        for (size_t j = 0; j < m.Columns(); j++) {
+            em(i, j) = m(i, j);
+        }
+    }
+
+    return em;
+}
+
+TEST_CASE("Matrix multiplication produces correct resutls")
+{
+    size_t r1 = 18;
+    size_t c1 = 3;
+    size_t c2 = 7;
+
+    Matrix m1 = Matrix::Random(r1, c1);
+    Matrix m2 = Matrix::Random(c1, c2);
+    Matrix m3 = m1 * m2;
+
+    auto eig_m1 = Copy_to_Eigen(m1);
+    auto eig_m2 = Copy_to_Eigen(m2);
+    auto eig_m3 = eig_m1 * eig_m2;
+
+    for (size_t i = 0; i < m3.Rows(); i++) {
+        for (size_t j = 0; j < m3.Columns(); j++) {
+            REQUIRE_THAT(m3(i, j), Catch::Matchers::WithinRel(eig_m3(i, j)));
         }
     }
 }
@@ -136,5 +155,4 @@ TEST_CASE("Single index returns correct values") {
             curr_entry++;
         }
     }
-
 }
