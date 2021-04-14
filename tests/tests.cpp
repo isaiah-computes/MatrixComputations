@@ -1,12 +1,6 @@
 #include "catch.hpp"
 #include "Matrix.hpp"
 
-
-// interesting : catch2 supports vector comparisons
-/*for (int i = 0; i < num_rows; i++){
-    REQUIRE_THAT(m[i], Catch::Matchers::Equals(t[i]));
-}*/
-
 TEST_CASE("Constructor generates correct dimensions") {
 
     int num_rows = 17;

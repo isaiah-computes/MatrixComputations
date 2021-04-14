@@ -1,6 +1,6 @@
 #include "catch.hpp"
 #include "Matrix.hpp"
-#include "Eigen3/Dense"
+#include "EigenInterop.hpp"
 
 TEST_CASE("Equality operator tests") {
 
@@ -104,19 +104,6 @@ TEST_CASE("Right ultiplication by identity has no impact") {
             REQUIRE(prod(i, j) == mat(i, j));
         }
     }
-}
-
-Eigen::MatrixXd Copy_to_Eigen(const Matrix& m)
-{
-    Eigen::MatrixXd em(m.Rows(), m.Columns());
-
-    for (size_t i = 0; i < m.Rows(); i++) {
-        for (size_t j = 0; j < m.Columns(); j++) {
-            em(i, j) = m(i, j);
-        }
-    }
-
-    return em;
 }
 
 TEST_CASE("Matrix multiplication produces correct resutls")
