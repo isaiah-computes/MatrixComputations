@@ -72,7 +72,7 @@ TEST_CASE("Matrix multiplication products have correct dimensions") {
     REQUIRE(m_prod.Columns() == dim_three);
 }
 
-TEST_CASE("Left ultiplication by identity has no impact") {
+TEST_CASE("Left multiplication by identity has no impact") {
 
     int rows = 4;
     int cols = 5;
@@ -80,16 +80,10 @@ TEST_CASE("Left ultiplication by identity has no impact") {
     Matrix ident = Matrix::Identity(rows);
     Matrix prod = ident * mat;
 
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            REQUIRE(prod(i, j) == mat(i, j));
-        }
-    }
+    REQUIRE(Near_Match(mat, prod) == true);
 }
 
-TEST_CASE("Right ultiplication by identity has no impact") {
+TEST_CASE("Right multiplication by identity has no impact") {
 
     int rows = 4;
     int cols = 5;
@@ -97,13 +91,7 @@ TEST_CASE("Right ultiplication by identity has no impact") {
     Matrix ident = Matrix::Identity(cols);
     Matrix prod = mat * ident;
 
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            REQUIRE(prod(i, j) == mat(i, j));
-        }
-    }
+    REQUIRE(Near_Match(mat, prod) == true);
 }
 
 TEST_CASE("Matrix multiplication produces correct resutls")
@@ -120,11 +108,7 @@ TEST_CASE("Matrix multiplication produces correct resutls")
     auto eig_m2 = Copy_to_Eigen(m2);
     auto eig_m3 = eig_m1 * eig_m2;
 
-    for (size_t i = 0; i < m3.Rows(); i++) {
-        for (size_t j = 0; j < m3.Columns(); j++) {
-            REQUIRE_THAT(m3(i, j), Catch::Matchers::WithinRel(eig_m3(i, j)));
-        }
-    }
+    REQUIRE(Near_Match(m3, eig_m3) == true);
 }
 
 TEST_CASE("Single index returns correct values") {
