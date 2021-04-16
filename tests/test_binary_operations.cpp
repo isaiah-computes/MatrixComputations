@@ -58,68 +58,52 @@ TEST_CASE("Subtraction operator produces correct results", "[binary-ops]") {
     REQUIRE(result == true);
 }
 
-TEST_CASE("Illegal multiplication dimensions throw exception", "[binary-ops]") {
 
-    Matrix m1 = Matrix::Random(4, 5);
+TEST_CASE("Multiplication operator produces correct results", "[binary-ops][eig]") {
 
-    REQUIRE_THROWS_AS(m1 * m1, std::invalid_argument);
-}
-
-TEST_CASE("Matrix multiplication products have correct dimensions", "[binary-ops]") {
-
-    int dim_one = 2 + rand() % 15;
-    int dim_two = 2 + rand() % 20;
-    int dim_three = 2 + rand() % 15;
-
-    Matrix m1 = Matrix::Random(dim_one, dim_one);
-    Matrix m_prod = m1 * m1;
-
-    REQUIRE(m_prod.Rows() == dim_one);
-    REQUIRE(m_prod.Columns() == dim_one);
-
-    m1 = Matrix::Random(dim_one, dim_two);
-    Matrix m2 = Matrix::Random(dim_two, dim_three);
-    m_prod = m1 * m2;
-
-    REQUIRE(m_prod.Rows() == dim_one);
-    REQUIRE(m_prod.Columns() == dim_three);
-}
-
-TEST_CASE("Left multiplication by identity has no impact", "[binary-ops]") {
-
-    int rows = 4;
-    int cols = 5;
-    Matrix mat = Matrix::Random(rows, cols);
-    Matrix ident = Matrix::Identity(rows);
-    Matrix prod = ident * mat;
-
-    REQUIRE(Near_Match(mat, prod) == true);
-}
-
-TEST_CASE("Right multiplication by identity has no impact", "[binary-ops]") {
-
-    int rows = 4;
-    int cols = 5;
-    Matrix mat = Matrix::Random(rows, cols);
-    Matrix ident = Matrix::Identity(cols);
-    Matrix prod = mat * ident;
-
-    REQUIRE(Near_Match(mat, prod) == true);
-}
-
-TEST_CASE("Matrix multiplication produces correct resutls", "[binary-ops][eig]")
-{
-    size_t r1 = 18;
-    size_t c1 = 3;
-    size_t c2 = 7;
+    size_t r1 = 15;
+    size_t c1 = 22;
+    size_t c2 = 18;
 
     Matrix m1 = Matrix::Random(r1, c1);
     Matrix m2 = Matrix::Random(c1, c2);
-    Matrix m3 = m1 * m2;
 
-    auto eig_m1 = Copy_to_Eigen(m1);
-    auto eig_m2 = Copy_to_Eigen(m2);
-    auto eig_m3 = eig_m1 * eig_m2;
+    SECTION("Multiplication yields appropriate dimensions") {
 
-    REQUIRE(Near_Match(m3, eig_m3) == true);
+        Matrix m_sqr = Matrix::Random(r1, r1);
+        auto sqr_prod = m_sqr * m_sqr;
+        REQUIRE(sqr_prod.Rows() == m_sqr.Rows());
+        REQUIRE(sqr_prod.Columns() == m_sqr.Columns());
+
+        REQUIRE_THROWS_AS(m1 * m1, std::invalid_argument);
+
+        auto m_prod = m1 * m2;
+
+        REQUIRE(m_prod.Rows() == r1);
+        REQUIRE(m_prod.Columns() == c2);
+    }
+
+    SECTION("Multiplication by Identity leaves matrix unchanged") {
+
+        Matrix i1 = Matrix::Identity(r1);
+        auto i_prod_left = i1 * m1;
+        bool result = i_prod_left == m1;
+        REQUIRE(result == true);
+
+        Matrix i2 = Matrix::Identity(c1);
+        auto i_prod_right = m1 * i2;
+        result = i_prod_right == m1;
+        REQUIRE(result == true);
+    }
+
+    SECTION("Multiplication reulsts are numerically valid") {
+
+        Matrix m3 = m1 * m2;
+
+        auto eig_m1 = Copy_to_Eigen(m1);
+        auto eig_m2 = Copy_to_Eigen(m2);
+        auto eig_m3 = eig_m1 * eig_m2;
+
+        REQUIRE(Near_Match(m3, eig_m3) == true);
+    }
 }
