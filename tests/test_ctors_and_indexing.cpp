@@ -63,14 +63,22 @@ TEST_CASE("Indexing by row and column returns correct value", "[indexing]") {
     }
 
     SECTION( "entry retrieval returns correct values" ) {
+        
         curr_entry = 0;
+        bool result = true;
+
         for (int i = 0; i < num_rows; i++) {
             for (int j = 0; j < num_cols; j++) {
-                REQUIRE(m(i, j) == curr_entry);
-                REQUIRE(m.At(i, j) == curr_entry);
+                if (m(i, j) != curr_entry) result = false;
+                if (m.At(i, j) != curr_entry) result = false;
                 curr_entry++;
+
+                if (!result) break;
             }
+            if (!result) break;
         }
+
+        REQUIRE(result == true);
     }
 }
 
