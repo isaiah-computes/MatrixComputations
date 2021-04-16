@@ -127,13 +127,13 @@ const double& Matrix::operator()(const size_t row, const size_t col) const
 
 double& Matrix::At(const size_t row, const size_t col)
 {
-	if (row >= rows || col >= cols) throw std::out_of_range("Invalid index value.");
+	if (row >= rows || col >= cols) throw std::out_of_range("Invalid row or column index");
 	return entries[Index(row, col)];
 }
 
 const double& Matrix::At(const size_t row, const size_t col) const
 {
-	if (row >= rows || col >= cols) throw std::out_of_range("Invalid index value.");
+	if (row >= rows || col >= cols) throw std::out_of_range("Invalid row or column index");
 	return entries[Index(row, col)];
 }
 
@@ -145,6 +145,18 @@ double& Matrix::operator()(const size_t index)
 const double& Matrix::operator()(const size_t index) const
 {
 	return this->entries[index];
+}
+
+double& Matrix::At(const size_t index)
+{
+	if (index >= rows * cols) throw std::out_of_range("Invalid linear index");
+	return entries[index];
+}
+
+const double& Matrix::At(const size_t index) const
+{
+	if (index >= rows * cols) throw std::out_of_range("Invalid linear index");
+	return entries[index];
 }
 
 bool Matrix::operator==(const Matrix& other)

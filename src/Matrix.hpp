@@ -37,8 +37,8 @@ public:
 	double& operator()(const size_t index);
 	const double& operator()(const size_t index) const;
 
-	double& operator[](const size_t index) { return entries[index]; }
-	const double& operator[](const size_t index) const { return entries[index]; }
+	double& At(const size_t index);
+	const double& At(const size_t index) const;
 
 	Matrix operator+(const Matrix& other);
 	Matrix operator-(const Matrix& other);
