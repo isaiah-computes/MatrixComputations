@@ -7,5 +7,6 @@
 Eigen::MatrixXd Copy_to_Eigen(const Matrix& m);
 bool Near_Match(const Matrix& m1, const Matrix& m2, double tol = 100 * std::numeric_limits<double>::epsilon());
 bool Near_Match(const Matrix& m, const Eigen::MatrixXd& eig_m, double tol = 100 * std::numeric_limits<double>::epsilon());
+bool Is_Symmetric(const Matrix& m);
 
 #endif

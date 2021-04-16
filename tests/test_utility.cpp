@@ -56,3 +56,17 @@ bool Near_Match(const Matrix& m, const Eigen::MatrixXd& eig_m, double tol)
 
     return result;
 }
+
+bool Is_Symmetric(const Matrix& m)
+{
+    bool result = true;
+    if (m.Rows() != m.Columns()) throw std::invalid_argument("Cannot test non-square matrix for symmetry.");
+
+    for (size_t i = 0; i < m.Rows(); i++) {
+        for (size_t j = i + 1; j < m.Columns(); j++) {
+            REQUIRE(m(i, j) == m(j, i));
+        }
+    }
+
+    return result;
+}
