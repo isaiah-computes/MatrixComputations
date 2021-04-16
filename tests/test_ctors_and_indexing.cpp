@@ -42,14 +42,14 @@ TEST_CASE("Initializer list constructor populates matrix correctly", "[ctors]") 
 
 TEST_CASE("Indexing by row and column returns correct value", "[indexing]") {
 
-    int num_rows = 4;
-    int num_cols = 5;
+    size_t num_rows = 4;
+    size_t num_cols = 5;
 
     Matrix m(num_rows, num_cols);
-    int curr_entry = 0;
+    size_t curr_entry = 0;
 
-    for (int i = 0; i < num_rows; i++) {
-        for (int j = 0; j < num_cols; j++) {
+    for (size_t i = 0; i < num_rows; i++) {
+        for (size_t j = 0; j < num_cols; j++) {
             m(i, j) = curr_entry;
             curr_entry++;
         }
@@ -67,8 +67,8 @@ TEST_CASE("Indexing by row and column returns correct value", "[indexing]") {
         curr_entry = 0;
         bool result = true;
 
-        for (int i = 0; i < num_rows; i++) {
-            for (int j = 0; j < num_cols; j++) {
+        for (size_t i = 0; i < num_rows; i++) {
+            for (size_t j = 0; j < num_cols; j++) {
                 if (m(i, j) != curr_entry) result = false;
                 if (m.At(i, j) != curr_entry) result = false;
                 curr_entry++;
@@ -84,14 +84,14 @@ TEST_CASE("Indexing by row and column returns correct value", "[indexing]") {
 
 TEST_CASE("Single linear index returns correct values", "[indexing]") {
 
-    int num_rows = 35;
-    int num_cols = 17;
+    size_t num_rows = 35;
+    size_t num_cols = 17;
     Matrix m = Matrix::Random(35, 17);
 
-    int curr_entry = 0;
+    size_t curr_entry = 0;
 
-    for (int i = 0; i < num_rows; i++) {
-        for (int j = 0; j < num_cols; j++) {
+    for (size_t i = 0; i < num_rows; i++) {
+        for (size_t j = 0; j < num_cols; j++) {
             REQUIRE(m(i, j) == m(curr_entry));
             REQUIRE(m(i, j) == m[curr_entry]);
             curr_entry++;
@@ -101,28 +101,28 @@ TEST_CASE("Single linear index returns correct values", "[indexing]") {
 
 TEST_CASE("Identity generator produces diagonal matrix of ones", "[ctors][named-ctor]") {
 
-    int size = 5;
-
+    size_t size = 18;
     Matrix m = Matrix::Identity(size);
 
-    for (int i = 0; i<size; i++)
-    {
-        for (int j = 0; j < size; j++)
-        {
-            if (i == j) REQUIRE(m(i, j) == 1.0);
-            else REQUIRE(m(i, j) == 0.0);
+    bool result = true;
+
+    for (size_t i = 0; i<size; i++)    {
+        for (size_t j = 0; j < size; j++)        {
+            if (i == j && m(i, j) != 1.0) result = false;
+            else if (i != j && m(i, j) != 0.0) result = false;
+
+            if (!result) break;
         }
+        if (!result) break;
     }
+
+    REQUIRE(result == true);
 }
 
 TEST_CASE("Random Symmetric generator produces symmetric matrix", "[ctors][named-ctor]") {
 
-    int size = 7;
+    size_t size = 7;
     Matrix m = Matrix::RandomSymmetric(size);
 
-    for (int i = 0; i < size; i++) {
-        for (int j = i + 1; j < size; j++) {
-            REQUIRE(m(i, j) == m(j, i));
-        }
-    }
+    REQUIRE(Is_Symmetric(m) == true);
 }
