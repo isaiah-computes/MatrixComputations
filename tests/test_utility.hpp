@@ -5,8 +5,15 @@
 #include "Eigen3/Dense"
 
 Eigen::MatrixXd Copy_to_Eigen(const Matrix& m);
+
+bool Is_Symmetric(const Matrix& m);
+bool Is_Upper_Triangular(const Matrix& m);
+bool Is_Strictly_Upper_Triangular(const Matrix& m);
+bool Is_Lower_Triangular(const Matrix& m);
+bool Is_Strictly_Lower_Triangular(const Matrix& m);
+
 bool Near_Match(const Matrix& m1, const Matrix& m2, double tol = 100 * std::numeric_limits<double>::epsilon());
 bool Near_Match(const Matrix& m, const Eigen::MatrixXd& eig_m, double tol = 100 * std::numeric_limits<double>::epsilon());
-bool Is_Symmetric(const Matrix& m);
+
 
 #endif

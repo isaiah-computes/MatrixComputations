@@ -59,13 +59,82 @@ bool Near_Match(const Matrix& m, const Eigen::MatrixXd& eig_m, double tol)
 
 bool Is_Symmetric(const Matrix& m)
 {
-    bool result = true;
-    if (m.Rows() != m.Columns()) throw std::invalid_argument("Cannot test non-square matrix for symmetry.");
+    if (!m.Square()) throw std::invalid_argument("Cannot test non-square matrix for symmetry.");
 
+    bool result = true;
+    
     for (size_t i = 0; i < m.Rows(); i++) {
         for (size_t j = i + 1; j < m.Columns(); j++) {
             REQUIRE(m(i, j) == m(j, i));
         }
+    }
+
+    return result;
+}
+
+bool Is_Upper_Triangular(const Matrix& m)
+{
+    if (!m.Square()) throw std::invalid_argument("Cannot test non-square matrix for upper triangularity.");
+
+    bool result = true;
+
+    for (size_t i = 0; i < m.Rows(); i++) {
+        for (size_t j = 0; j < i; j++) {
+            if (m(i, j) != 0.0) result = false;
+            if (!result) break;
+        }
+        if (!result) break;
+    }
+
+    return result;
+}
+
+bool Is_Strictly_Upper_Triangular(const Matrix& m)
+{
+    if (!m.Square()) throw std::invalid_argument("Cannot test non-square matrix for upper triangularity.");
+
+    bool result = true;
+
+    for (size_t i = 0; i < m.Rows(); i++) {
+        for (size_t j = 0; j <= i; j++) {
+            if (m(i, j) != 0.0) result = false;
+            if (!result) break;
+        }
+        if (!result) break;
+    }
+
+    return result;
+}
+
+bool Is_Lower_Triangular(const Matrix& m)
+{
+    if (!m.Square()) throw std::invalid_argument("Cannot test non-square matrix for lower triangularity.");
+
+    bool result = true;
+
+    for (size_t i = 0; i < m.Rows(); i++) {
+        for (size_t j = i + 1; j < m.Columns(); j++) {
+            if (m(i, j) != 0.0) result = false;
+            if (!result) break;
+        }
+        if (!result) break;
+    }
+
+    return result;
+}
+
+bool Is_Strictly_Lower_Triangular(const Matrix& m)
+{
+    if (!m.Square()) throw std::invalid_argument("Cannot test non-square matrix for lower triangularity.");
+
+    bool result = true;
+
+    for (size_t i = 0; i < m.Rows(); i++) {
+        for (size_t j = i; j < m.Columns(); j++) {
+            if (m(i, j) != 0.0) result = false;
+            if (!result) break;
+        }
+        if (!result) break;
     }
 
     return result;

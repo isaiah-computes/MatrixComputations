@@ -1,6 +1,7 @@
 #include "catch.hpp"
 #include "Matrix.hpp"
 #include "MatrixDecompositions.hpp"
+#include "test_utility.hpp"
 
 TEST_CASE("LU Decomoposiiton requires square input") {
 
@@ -19,23 +20,9 @@ TEST_CASE("LU Decomoposiiton is correct") {
 
 	MatrixDecompositions::LU(A, L, U);
 
-	for (int i = 0; i < size - 1; i++) {
-		for (int j = i + 1; j < size; j++) {
-			REQUIRE(L(i, j) == 0);
-		}
-	}
-
-	for (int i = 1; i < size; i++) {
-		for (int j = 0; j < i; j++) {
-			REQUIRE(U(i, j) == 0);
-		}
-	}
+	REQUIRE(Is_Upper_Triangular(U) == true);
+	REQUIRE(Is_Lower_Triangular(L) == true);
 
 	Matrix B = L * U; 
-	
-	for (int i = 0; i < size; i++)	{
-		for (int j = 0; j < size; j++) {
-			REQUIRE_THAT(A(i, j), Catch::Matchers::WithinRel(B(i, j)));
-		}
-	}
+	REQUIRE(Near_Match(A, B) == true);
 }
