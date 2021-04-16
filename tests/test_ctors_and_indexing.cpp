@@ -126,3 +126,27 @@ TEST_CASE("Random Symmetric generator produces symmetric matrix", "[ctors][named
 
     REQUIRE(Is_Symmetric(m) == true);
 }
+
+TEST_CASE("Random Integer generator produces correct output", "[ctors][named-ctor]") {
+
+    size_t r = 9;
+    size_t c = 15;
+
+    int min_val = 23;
+    int max_val = 307;
+
+    Matrix m = Matrix::RandomInteger(r, c, min_val, max_val);
+
+    bool result = true;
+
+    for (size_t i = 0; i < r; i++) {
+        for (size_t j = 0; j < c; j++) {
+            if (m(i, j) < min_val || m(i, j) > max_val) result = false;
+            if (m(i, j) != static_cast<int>(m(i, j))) result = false;
+            if (!result) break;
+        }
+        if (!result) break;
+    }
+
+    REQUIRE(result == true);
+}
