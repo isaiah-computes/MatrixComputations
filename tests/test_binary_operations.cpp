@@ -2,7 +2,7 @@
 #include "Matrix.hpp"
 #include "test_utility.hpp"
 
-TEST_CASE("Equality operator tests") {
+TEST_CASE("Equality operator produces correct results", "[binary-ops]") {
 
     Matrix m1 = Matrix::Random(4, 6);
     bool m_test = m1 == m1;
@@ -16,7 +16,7 @@ TEST_CASE("Equality operator tests") {
     REQUIRE_THROWS_AS(m1 == m3, std::invalid_argument);
 }
 
-TEST_CASE("Addition and subtraction require same dimensions") {
+TEST_CASE("Addition and subtraction require same dimensions", "[binary-ops]") {
 
     Matrix m1 = Matrix::Random(5, 7);
     Matrix m2 = Matrix::Random(7, 5);
@@ -25,7 +25,7 @@ TEST_CASE("Addition and subtraction require same dimensions") {
     REQUIRE_THROWS_AS(m1 - m2, std::invalid_argument);
 }
 
-TEST_CASE("Addition and subtraction function properly") {
+TEST_CASE("Addition and subtraction function properly", "[binary-ops]") {
 
     int rows = 5;
     int columns = 6;
@@ -45,14 +45,14 @@ TEST_CASE("Addition and subtraction function properly") {
     }
 }
 
-TEST_CASE("Illegal multiplication dimensions throw exception") {
+TEST_CASE("Illegal multiplication dimensions throw exception", "[binary-ops]") {
 
     Matrix m1 = Matrix::Random(4, 5);
 
     REQUIRE_THROWS_AS(m1 * m1, std::invalid_argument);
 }
 
-TEST_CASE("Matrix multiplication products have correct dimensions") {
+TEST_CASE("Matrix multiplication products have correct dimensions", "[binary-ops]") {
 
     int dim_one = 2 + rand() % 15;
     int dim_two = 2 + rand() % 20;
@@ -72,7 +72,7 @@ TEST_CASE("Matrix multiplication products have correct dimensions") {
     REQUIRE(m_prod.Columns() == dim_three);
 }
 
-TEST_CASE("Left multiplication by identity has no impact") {
+TEST_CASE("Left multiplication by identity has no impact", "[binary-ops]") {
 
     int rows = 4;
     int cols = 5;
@@ -83,7 +83,7 @@ TEST_CASE("Left multiplication by identity has no impact") {
     REQUIRE(Near_Match(mat, prod) == true);
 }
 
-TEST_CASE("Right multiplication by identity has no impact") {
+TEST_CASE("Right multiplication by identity has no impact", "[binary-ops]") {
 
     int rows = 4;
     int cols = 5;
@@ -94,7 +94,7 @@ TEST_CASE("Right multiplication by identity has no impact") {
     REQUIRE(Near_Match(mat, prod) == true);
 }
 
-TEST_CASE("Matrix multiplication produces correct resutls")
+TEST_CASE("Matrix multiplication produces correct resutls", "[binary-ops][eig]")
 {
     size_t r1 = 18;
     size_t c1 = 3;
