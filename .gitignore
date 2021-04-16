@@ -1,2 +1,4 @@
 /tests/.vs/
+/tests/.vscode/
+/tests/build/
 /tests/out/
