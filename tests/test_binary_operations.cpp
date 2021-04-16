@@ -16,33 +16,46 @@ TEST_CASE("Equality operator produces correct results", "[binary-ops]") {
     REQUIRE_THROWS_AS(m1 == m3, std::invalid_argument);
 }
 
-TEST_CASE("Addition and subtraction require same dimensions", "[binary-ops]") {
+TEST_CASE("Addition operator produces correct results", "[binary-ops]") {
 
     Matrix m1 = Matrix::Random(5, 7);
     Matrix m2 = Matrix::Random(7, 5);
+    Matrix m3 = m1 + m1;
 
     REQUIRE_THROWS_AS(m1 + m2, std::invalid_argument);
-    REQUIRE_THROWS_AS(m1 - m2, std::invalid_argument);
+
+    bool result = true;
+
+    for (size_t i = 0; i < m1.Rows(); i++) {
+        for (size_t j = 0; j < m1.Columns(); j++) {
+            if (m3(i, j) != 2 * m1(i, j)) result = false;
+            if (!result) break;
+        }
+        if (!result) break;
+    }
+
+    REQUIRE(result == true);
 }
 
-TEST_CASE("Addition and subtraction function properly", "[binary-ops]") {
+TEST_CASE("Subtraction operator produces correct results", "[binary-ops]") {
 
-    int rows = 5;
-    int columns = 6;
+    Matrix m1 = Matrix::Random(5, 7);
+    Matrix m2 = Matrix::Random(7, 5);
+    Matrix m3 = m1 - m1;
 
-    Matrix m = Matrix::Random(rows, columns);
+    REQUIRE_THROWS_AS(m1 - m2, std::invalid_argument);
 
-    Matrix m_sum = m + m;
-    Matrix m_diff = m - m;
+    bool result = true;
 
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < columns; j++)
-        {
-            REQUIRE(m_sum(i, j) == 2 * m(i, j));
-            REQUIRE(m_diff(i, j) == 0);
+    for (size_t i = 0; i < m1.Rows(); i++) {
+        for (size_t j = 0; j < m1.Columns(); j++) {
+            if (m3(i, j) != 0.0) result = false;
+            if (!result) break;
         }
+        if (!result) break;
     }
+
+    REQUIRE(result == true);
 }
 
 TEST_CASE("Illegal multiplication dimensions throw exception", "[binary-ops]") {
