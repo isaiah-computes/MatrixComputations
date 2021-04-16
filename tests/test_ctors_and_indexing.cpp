@@ -94,8 +94,6 @@ TEST_CASE("Single linear index returns correct values", "[indexing]") {
     size_t num_cols = 17;
     Matrix m = Matrix::Random(num_rows, num_cols);
 
-    size_t curr_entry = 0;
-
     SECTION("invalid indices throw an exception") {
         REQUIRE_THROWS_AS(m.At(-1), std::out_of_range);
         REQUIRE_THROWS_AS(m.At(num_rows * num_cols), std::out_of_range);
@@ -103,7 +101,7 @@ TEST_CASE("Single linear index returns correct values", "[indexing]") {
 
     SECTION("entry retrieval returns correct values") {
 
-        curr_entry = 0;
+        size_t curr_entry = 0;
         bool result = true;
 
         for (size_t i = 0; i < num_rows; i++) {
