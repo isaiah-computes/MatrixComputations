@@ -2,7 +2,7 @@
 #include "Matrix.hpp"
 #include "test_utility.hpp"
 
-TEST_CASE("Constructor generates correct dimensions") {
+TEST_CASE("Standard constructor generates correct dimensions", "[ctors]") {
 
     int num_rows = 17;
     int num_cols = 22;
@@ -12,7 +12,7 @@ TEST_CASE("Constructor generates correct dimensions") {
     REQUIRE(m.Columns() == num_cols);
 }
 
-TEST_CASE("Initializer list ctor functions properly") {
+TEST_CASE("Initializer list constructor populates matrix correctly", "[ctors]") {
 
     NumericVector v1{ 15,16,17 };
     NumericVector v2{ 22,23,24 };
@@ -40,7 +40,7 @@ TEST_CASE("Initializer list ctor functions properly") {
     REQUIRE(m(3, 2) == 23);
 }
 
-TEST_CASE("Indexing by row and column works correctly") {
+TEST_CASE("Indexing by row and column returns correct value", "[indexing]") {
 
     int num_rows = 4;
     int num_cols = 5;
@@ -74,7 +74,24 @@ TEST_CASE("Indexing by row and column works correctly") {
     }
 }
 
-TEST_CASE( "Identity generates diagonal matrix of ones") {
+TEST_CASE("Single linear index returns correct values", "[indexing]") {
+
+    int num_rows = 35;
+    int num_cols = 17;
+    Matrix m = Matrix::Random(35, 17);
+
+    int curr_entry = 0;
+
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; j < num_cols; j++) {
+            REQUIRE(m(i, j) == m(curr_entry));
+            REQUIRE(m(i, j) == m[curr_entry]);
+            curr_entry++;
+        }
+    }
+}
+
+TEST_CASE("Identity generator produces diagonal matrix of ones", "[ctors][named-ctor]") {
 
     int size = 5;
 
@@ -90,7 +107,7 @@ TEST_CASE( "Identity generates diagonal matrix of ones") {
     }
 }
 
-TEST_CASE("RandomSymmetric generator produces symmetric matrix") {
+TEST_CASE("Random Symmetric generator produces symmetric matrix", "[ctors][named-ctor]") {
 
     int size = 7;
     Matrix m = Matrix::RandomSymmetric(size);
@@ -98,41 +115,6 @@ TEST_CASE("RandomSymmetric generator produces symmetric matrix") {
     for (int i = 0; i < size; i++) {
         for (int j = i + 1; j < size; j++) {
             REQUIRE(m(i, j) == m(j, i));
-        }
-    }
-}
-
-TEST_CASE("Writing and reading matrices maintain dimensions") {
-
-    Matrix m = Matrix::Random(7, 12);
-    m.ToFile("test_mat.txt");
-    Matrix m2 = Matrix::FromFile("test_mat.txt");
-
-    REQUIRE(m.Rows() == m2.Rows());
-    REQUIRE(m.Columns() == m2.Columns());
-}
-
-TEST_CASE("Writing and reading matrices maintain values") {
-
-    Matrix m = Matrix::Random(7, 12);
-    m.ToFile("test_mat.txt");
-    Matrix m2 = Matrix::FromFile("test_mat.txt");
-    bool matching_matrices = m == m2;
-
-    REQUIRE(matching_matrices == true);
-}
-
-TEST_CASE("Matrix transpose produces correct output") {
-
-    int num_rows = 11;
-    int num_cols = 5;
-    Matrix m1 = Matrix::Random(num_rows, num_cols);
-    Matrix m2 = m1.Transpose();
-
-    for (int i = 0; i < num_rows; i++)
-    {
-        for (int j = 0; j < num_cols; j++) {
-            REQUIRE(m2(j, i) == m1(i, j));
         }
     }
 }

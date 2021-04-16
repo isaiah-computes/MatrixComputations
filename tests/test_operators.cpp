@@ -110,20 +110,3 @@ TEST_CASE("Matrix multiplication produces correct resutls")
 
     REQUIRE(Near_Match(m3, eig_m3) == true);
 }
-
-TEST_CASE("Single index returns correct values") {
-
-    int num_rows = 35;
-    int num_cols = 17;
-    Matrix m = Matrix::Random(35, 17);
-
-    int curr_entry = 0;
-
-    for (int i = 0; i < num_rows; i++) {
-        for (int j = 0; j < num_cols; j++) {
-            REQUIRE(m(i, j) == m(curr_entry));
-            REQUIRE(m(i, j) == m[curr_entry]);
-            curr_entry++;
-        }
-    }
-}
