@@ -21,6 +21,8 @@ public:
 	size_t Index(size_t row, size_t col) const;
 	virtual ~Matrix();
 
+	bool Square() const { return rows == cols; }
+
 	static Matrix Identity(const size_t size);
 	static Matrix Random(const size_t rows, const size_t columns);
 	static Matrix RandomSymmetric(const size_t size);
