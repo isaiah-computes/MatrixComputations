@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "tests_utility.hpp"
+#include "test_utility.hpp"
 
 Eigen::MatrixXd Copy_to_Eigen(const Matrix& m)
 {

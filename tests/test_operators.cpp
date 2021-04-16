@@ -1,6 +1,6 @@
 #include "catch.hpp"
 #include "Matrix.hpp"
-#include "tests_utility.hpp"
+#include "test_utility.hpp"
 
 TEST_CASE("Equality operator tests") {
 

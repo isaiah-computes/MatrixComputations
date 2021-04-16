@@ -6,4 +6,4 @@ project ("matrix-comps-unit-tests")
 include_directories("../src" "/Development/Libraries/")
 file(GLOB SOURCES "../src/*.cpp" "../src/*.hpp")
 
-add_executable (unit-tests main.cpp catch.hpp tests.cpp tests_decompositions.cpp tests_operators.cpp "tests_utility.hpp" "tests_utility.cpp" ${SOURCES})
+add_executable (unit-tests "test_main.cpp" catch.hpp "test_ctors_and_indexing.cpp" "test_decompositions.cpp" "test_operators.cpp" "test_utility.hpp" "test_utility.cpp" ${SOURCES})
