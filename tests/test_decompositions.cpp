@@ -1,3 +1,4 @@
+#include <iostream>
 #include "catch.hpp"
 #include "Matrix.hpp"
 #include "MatrixDecompositions.hpp"
@@ -14,7 +15,7 @@ TEST_CASE("LU Decomoposiiton requires square input") {
 
 TEST_CASE("LU Decomoposiiton is correct") {
 
-	int size = 5;
+	size_t size = 5;
 	Matrix A = Matrix::Random(size, size);
 	Matrix L(size, size); Matrix U(size, size);
 
